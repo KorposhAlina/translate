@@ -5,6 +5,7 @@ const pdfParse = require("pdf-parse");
 const fs = require("fs");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const path = require("path");
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
@@ -13,8 +14,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ---------------- GOOGLE TRANSLATE (UNOFFICIAL) ----------------
+// ---------------- STATIC FILES ----------------
+app.use(express.static(__dirname));
 
+// ---------------- GOOGLE TRANSLATE (UNOFFICIAL) ----------------
 async function translateText(text, source, target) {
   const url =
     `https://translate.googleapis.com/translate_a/single?client=gtx` +
@@ -23,12 +26,10 @@ async function translateText(text, source, target) {
   const res = await fetch(url);
   const data = await res.json();
 
-  // Повертаємо весь переклад (усі речення)
   return data[0].map(item => item[0]).join(" ");
 }
 
 // ---------------- TEXT ENDPOINT ----------------
-
 app.post("/translate-text", async (req, res) => {
   const { text, fromLang, toLang } = req.body;
 
@@ -46,7 +47,6 @@ app.post("/translate-text", async (req, res) => {
 });
 
 // ---------------- FILE ENDPOINT ----------------
-
 app.post("/translate-file", upload.single("file"), async (req, res) => {
   const file = req.file;
   const { fromLang, toLang } = req.body;
@@ -86,8 +86,13 @@ app.post("/translate-file", upload.single("file"), async (req, res) => {
   }
 });
 
-// ---------------- START SERVER ----------------
+// ---------------- SERVE FRONTEND ----------------
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
-app.listen(8080,"127.0.0.1", () => {
-  console.log("Server running on http://127.0.0.1:8080");
+// ---------------- START SERVER ----------------
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server running on port " + PORT);
 });
