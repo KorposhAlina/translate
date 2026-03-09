@@ -46,7 +46,7 @@ swapBtn.addEventListener("click", () => {
 // ----------------- TRANSLATE FUNCTION -----------------
 
 async function translate(text, source, target) {
-  const res = await fetch("/translate-file", {
+  const res = await fetch("/translate-text", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -191,3 +191,4 @@ if (clearHistoryBtn) {
   });
 
 }
+
