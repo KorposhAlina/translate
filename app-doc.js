@@ -65,7 +65,7 @@ translateDocBtn.addEventListener("click", async () => {
   formData.append("toLang", docToLang.value);
 
   try {
-    const res = await fetch("http://127.0.0.1:8080/translate-file", {
+    const res = await fetch("/translate-file", {
       method: "POST",
       body: formData
     });
@@ -89,4 +89,5 @@ translateDocBtn.addEventListener("click", async () => {
     console.error(err);
     docStatus.textContent = "Error while translating.";
   }
+
 });
