@@ -46,7 +46,7 @@ swapBtn.addEventListener("click", () => {
 // ----------------- TRANSLATE FUNCTION -----------------
 
 async function translate(text, source, target) {
-  const res = await fetch("http://localhost:8080/translate-text", {
+  const res = await fetch("/translate-file", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -189,4 +189,5 @@ if (clearHistoryBtn) {
     localStorage.removeItem(HISTORY_KEY);
     renderHistory();
   });
+
 }
