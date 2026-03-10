@@ -1,7 +1,6 @@
 const express = require("express");
 const multer = require("multer");
 const mammoth = require("mammoth");
-const pdfParse = require("pdf-parse");
 const fs = require("fs");
 const cors = require("cors");
 const fetch = require("node-fetch");
@@ -58,9 +57,6 @@ app.post("/translate-file", upload.single("file"), async (req, res) => {
 
     if (file.mimetype === "text/plain") {
       text = fs.readFileSync(file.path, "utf8");
-    } else if (file.mimetype === "application/pdf") {
-      const data = await pdfParse(fs.readFileSync(file.path));
-      text = data.text;
     } else if (
       file.mimetype ===
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -96,3 +92,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Server running on port " + PORT);
 });
+
