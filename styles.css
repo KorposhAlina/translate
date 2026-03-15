@@ -217,6 +217,8 @@ textarea:focus {
   cursor: pointer;
   border: 1px solid #d8caff;    /* така ж рамка, як у поля */
   transition: background 0.2s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
 }
 
 .file-upload:hover {
@@ -226,11 +228,6 @@ textarea:focus {
 
 .file-upload:active {
   transform: scale(0.97);
-}
-
-.file-upload {
-  position: relative;
-  overflow: hidden;
 }
 
 .file-upload input[type="file"] {
