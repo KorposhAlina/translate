@@ -27,7 +27,7 @@ docFileInput.addEventListener("change", () => {
   if (docFileInput.files.length > 0) {
     docFileName.textContent = docFileInput.files[0].name;
   } else {
-    docFileName.textContent = "Файл не вибрано";
+    docFileName.textContent = "    docFileName.textContent = "No file selected";
   }
 });
 
